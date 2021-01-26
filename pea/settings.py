@@ -6,8 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'zp9vh)wz$uu#m4(d=gx=_x1w!-9^hm(n3%!_9+3k5tyoq^i!fn'
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = ['*'] if DEBUG else ['localhost', '192.168.1.51', 'dt-data-pea.herokuapp.com']
 
