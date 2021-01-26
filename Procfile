@@ -1,1 +1,1 @@
-web: gunicorn cap.wsgi --log-file -
+web: gunicorn pea.wsgi --log-file -
