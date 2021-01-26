@@ -1,0 +1,11 @@
+{% load static %}
+<nav id="sidebar">
+    <div class="sidebar-header ">
+        <img src="{% static 'img/logo.png' %}" alt="dt-data logo" class="main-logo">
+    </div>
+    <ul class="list-unstyled components text-secondary nav-tabs">
+        <li class="nav-link {% if dashboard %}active{% endif %}">
+            <a href="{% url 'demo:main' %}"><i class="fas fa-chart-bar"></i> Dashboard</a>
+        </li>
+    </ul>
+</nav>

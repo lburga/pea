@@ -1,12 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="{% static 'app.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DT-DATA</title>
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'img/logo.png' %}"/>
+    <link href="{% static 'vendor/bootstrap4/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/auth.css' %}" rel="stylesheet">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet">
 </head>
 <body>
-<h1>testing</h1>
-<a href="{% url 'demo:login' %}">demo</a>
+    <div class="wrapper">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <img class="brand main-logo" src="{% static 'img/logo.png' %}" alt="DT-Data" width="100%">
+                    </div>
+                    <h6 class="mb-4 text-muted">DT-DATA - PEA</h6>
+                    <form action="" method="">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group text-left">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="remember" class="custom-control-input" id="remember-me">
+                                <label class="custom-control-label" for="remember-me">Recuerdame</label>
+                            </div>
+                        </div>
+                        <a href="{% url 'demo:main' %}" class="btn btn-primary shadow-2 mb-4 text-white" >Ingresar</a>
+                        <!-- <a href="{# url 'index' #}" class="btn btn-primary shadow-2 mb-4 text-white" >Ingresar</a> -->
+                    </form>
+                    <p class="mb-2 text-muted">¿Olvidaste tu Contraseña? <a href="#">Recuperar</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'vendor/jquery3/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap4/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

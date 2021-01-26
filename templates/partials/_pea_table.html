@@ -1,0 +1,42 @@
+{% load demo_tags %}
+<table class="table table-sm">
+	<thead>
+		<tr>
+			<th colspan="14">INCOME STATEMENT</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for cat in categories %}
+			<tr class="bg-info text-white">
+				<td><strong>{{cat}}</strong></td>
+				{% for m in months %}
+				<td>{{m}}</td>
+				{% endfor %}
+				<td>Total</td>
+			</tr>
+			{% for ins in income_statement|key:cat %}
+				<tr>
+					<td>{{ins.1}}</td>
+					{% for m in months %}
+					<td>{% get_data report m cat ins.1 %}</td>
+					{% endfor %}
+					<td class="text-danger">{% get_total_income_statement report ins.1 %}</td>
+				</tr>
+			{% endfor %}
+			<tr>
+				<td><strong>Total {{ cat|title }}</strong></td>
+				{% for m in months %}
+				<td>{% get_total_month report m cat %}</td>
+				{% endfor %}
+				<td><strong>{% get_total_category report cat %}</strong></td>
+			</tr>
+		{% endfor %}
+		<tr class="bg-success text-white">
+			<td>Margen Operativo</td>
+			{% for m in months %}
+			<td class="bg-{% get_operating_margin_class report m %}">{% get_operating_margin report m %}</td>
+			{% endfor %}
+			<td>{% get_total_operating_margin report %}</td>
+		</tr>
+	</tbody>
+</table>

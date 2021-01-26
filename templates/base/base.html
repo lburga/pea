@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DT-DATA</title>
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'img/logo.png' %}"/>
+    <link href="{% static 'vendor/bootstrap4/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'vendor/chartsjs/Chart.min.css' %}" rel="stylesheet"> -->
+    <link href="{% static 'vendor/flagiconcss3/css/flag-icon.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/master.css' %}" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+    <link href="{% static 'css/app.css' %}" rel="stylesheet">
+</head>
+<body>
+	<div class="wrapper">
+		{% block nav %}
+			{% include 'base/partials/nav.html' %}
+		{% endblock %}
+
+		<div id="body" class="active">
+			{% include 'base/partials/topnav.html' %}
+            <div class="content">
+				{% block content %}
+				{% endblock %}
+            </div>
+		</div>
+
+	</div>
+	<script src="{% static 'vendor/jquery3/jquery.min.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap4/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'vendor/fontawesome5/js/solid.min.js' %}"></script>
+	<script src="{% static 'vendor/fontawesome5/js/fontawesome.min.js' %}"></script>
+	<!-- <script src="{% static 'vendor/chartsjs/Chart.min.js' %}"></script> -->
+    <script src="{% static 'vendor/notyfy/notify.min.js' %}"></script>
+    
+    {% block js %}
+		<script src="{% static 'js/ui/dashboard-charts.js' %}"></script>
+    {% endblock %}
+    
+    {% block script %}
+	<script src="{% static 'js/ui/script.js' %}"></script>
+    {% endblock %}
+
+    <script type="text/javascript">
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#body').toggleClass('active');
+    });
+    {% if alert %}
+        $.notify("{{alert}}", {'position':'right-bottom', 'className':'success'});
+    {% endif %}
+    </script>
+    <script src="{% static 'js/basics.js' %}"></script>
+</body>
+</html>
