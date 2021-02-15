@@ -1,8 +1,8 @@
 {% load demo_tags %}
-<table class="table table-sm">
+<table class="table table-sm text-center">
 	<thead>
 		<tr>
-			<th colspan="14">INCOME STATEMENT</th>
+			<th colspan="16">INCOME STATEMENT</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -12,7 +12,9 @@
 				{% for m in months %}
 				<td>{{m}}</td>
 				{% endfor %}
-				<td>Total</td>
+				<td>2021</td>
+				<td class="bg-secondary">2020</td>
+				<td class="bg-white text-primary"><strong>Variability</strong></td>
 			</tr>
 			{% for ins in income_statement|key:cat %}
 				<tr>
@@ -21,6 +23,8 @@
 					<td>{% get_data report m cat ins.1 %}</td>
 					{% endfor %}
 					<td class="text-danger">{% get_total_income_statement report ins.1 %}</td>
+					<td class="text-secondary">{% get_last_totals last_totals ins.1 %}</td>
+					<td class="bg-white text-{% get_var_income_statement_class report last_totals ins.1 %} text-white">{% get_var_income_statement report last_totals ins.1 %}</td>
 				</tr>
 			{% endfor %}
 			<tr>
@@ -29,6 +33,8 @@
 				<td>{% get_total_month report m cat %}</td>
 				{% endfor %}
 				<td><strong>{% get_total_category report cat %}</strong></td>
+				<td class="text-secondary"><strong>{% get_last_totals_category last_totals cat %}</strong></td>
+				<td class="text-{% get_var_total_category_class report cat last_totals %} bg-white"><strong>{% get_var_total_category report cat last_totals %}</strong></td>
 			</tr>
 		{% endfor %}
 		<tr class="bg-success text-white">
@@ -37,6 +43,68 @@
 			<td class="bg-{% get_operating_margin_class report m %}">{% get_operating_margin report m %}</td>
 			{% endfor %}
 			<td>{% get_total_operating_margin report %}</td>
+			<td class="bg-secondary">{% get_last_totals_operating_margin last_totals %}</td>
+			<td class="bg-white text-{% get_var_last_totals_operating_margin_class report last_totals %}">{% get_var_last_totals_operating_margin report last_totals %}</td>
+		</tr>
+		<tr class="bg-primary text-white">
+			<td>EBITDA</td>
+			{% for m in months %}
+			<td class="bg-{% get_ebitda_class report ebitda m %}">{% get_ebitda report ebitda m %}</td>
+			{% endfor %}
+			<td>{% get_total_ebitda report ebitda months %}</td>
+			<td class="bg-secondary">{{last_ebdita|coma}}</td>
+			<td class="bg-white text-{% get_var_total_ebitda_class report ebitda months last_ebdita %}">{% get_var_total_ebitda report ebitda months last_ebdita %}</td>
+		</tr>
+		<tr>
+			<td colspan="16">EBITDA%</td>
+		</tr>
+		{% for item in ebitda_names %}
+		<tr>
+			<td class="text-nowrap">{{item}}</td>
+			{% for m in months %}
+			<td>{% get_ebitda_item ebitda m item %}</td>
+			{% endfor %}
+			<td>{% get_total_ebitda_item ebitda item %}</td>
+			<td class="text-secondary">{{last_ebdita_totals|key:item}}</td>
+			<td class="bg-white text-{% get_var_total_ebitda_item_class ebitda last_ebdita_totals item %}">{% get_var_total_ebitda_item ebitda last_ebdita_totals item %}</td>
+		</tr>
+		{% endfor %}
+		<tr><td colspan="16"><br></td></tr>
+		<tr class="font-weight-bold">
+			<td>INCOME BEFORE TAX</td>
+			{% for m in months %}
+			<td>{% get_income_before_tax report ebitda m %}</td>
+			{% endfor %}
+			<td>{% get_total_income_before_tax report ebitda months %}</td>
+			<td class="text-secondary">{{last_ebdita_totals|key:'income'}}</td>
+			<td class="bg-white text-{% get_var_total_income_before_tax_class report ebitda months last_ebdita_totals %}">{% get_var_total_income_before_tax report ebitda months last_ebdita_totals %}</td>
+		</tr>
+		<tr class="font-weight-bold">
+			<td>IVA Tax</td>
+			{% for m in months %}
+			<td>{% get_data_by_moth iva m %}</td>
+			{% endfor %}
+			<td>{{total_iva|coma}}</td>
+			<td class="text-secondary">{{last_ebdita_totals|key:'iva'}}</td>
+			<td class="bg-white text-{% substraction_class total_iva last_ebdita_totals|key:'iva' %}">{% substraction total_iva last_ebdita_totals|key:'iva' %}</td>
+		</tr>
+		<tr class="font-weight-bold">
+			<td>Rent Tax</td>
+			{% for m in months %}
+			<td>{% get_data_by_moth rent m %}</td>
+			{% endfor %}
+			<td>{{total_rent|coma}}</td>
+			<td class="text-secondary">{{last_ebdita_totals|key:'rent'}}</td>
+			<td class="bg-white text-{% substraction_class total_rent last_ebdita_totals|key:'rent' %}">{% substraction total_rent last_ebdita_totals|key:'rent' %}</td>
+		</tr>
+		<tr class="bg-dark text-white">
+			<td>NET INCOME</td>
+			{% for m in months %}
+			<td class="bg-{% get_income_class report ebitda iva rent m %}">{% get_income report ebitda iva rent m %}</td>
+			{% endfor %}
+			<td>{% get_total_income report ebitda iva rent months %}</td>
+			<td class="bg-secondary">{{last_ebdita_totals|key:'net'}}</td>
+			<td>{% get_var_total_income report ebitda iva rent months last_ebdita_totals %}</td>
 		</tr>
 	</tbody>
 </table>
